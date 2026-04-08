@@ -78,15 +78,41 @@ mvn clean install && java -jar target/ItAu-0.0.1-SNAPSHOT.jar
 
 ## Por que usar RULES ao invés de UseCases ou Jakarta Validation?
 
-*Extensibilidade*: cada regra é uma classe independente que implementa ValidationRule, facilitando adição ou remoção.
+### 🔹 Extensibilidade
+- Novas regras podem ser adicionadas sem modificar o `PasswordService`.
+- Basta criar uma nova classe que implemente `ValidationRule` e anotá-la com `@Component`.
+- Segue o princípio **Open/Closed (OCP)**: aberto para extensão, fechado para modificação.
 
-*Testabilidade*: regras podem ser testadas isoladamente, garantindo cobertura total.
+### 🔹 Desacoplamento
+- O `PasswordService` conhece apenas a interface `ValidationRule`, não os detalhes de cada regra.
+- Isso reduz dependências diretas e facilita manutenção.
 
-*Coesão*: cada regra tem responsabilidade única.
+### 🔹 Testabilidade
+- É simples testar o `PasswordService` isoladamente, injetando apenas as regras necessárias.
+- Permite uso de **mocks** ou **stubs** sem carregar todo o contexto do Spring.
 
-*Flexibilidade*: não ficamos presos às anotações do Jakarta Validation, que são mais rígidas e menos customizáveis.
+### 🔹 Reuso
+- As regras são independentes e podem ser reutilizadas em outros serviços.
+- Exemplo: `LengthRule` pode validar senhas em cadastro, login ou outros domínios.
 
-*Idiomaticidade*: como os filtros não são regras de negocio utiliza-se regras para validar a senha.
+### 🔹 Clareza e Organização
+- Cada regra tem responsabilidade única (**Single Responsibility Principle - SRP**).
+- O código fica mais legível e evita métodos com múltiplas condições complexas.
+
+### 🔹 Flexibilidade
+- É possível configurar quais regras devem ser aplicadas apenas ajustando os beans disponíveis.
+- Permite cenários diferentes (ex.: regras mais rígidas em produção, regras mais simples em testes).
+
+---
+
+### ✅ Conclusão
+Essa arquitetura promove:
+- **Manutenibilidade**
+- **Escalabilidade**
+- **Qualidade de código**
+
+Além disso, está alinhada com boas práticas como **SOLID** e **Inversão de Controle (IoC)**.
+
 
 ### Swagger
 
