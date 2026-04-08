@@ -11,6 +11,10 @@ public class PasswordService {
 
     private final List<ValidationRule> rules;
 
+    /**
+     *
+     * @param rules injeção de todas as regras(Rules) definido na pasta domain/validator/rules
+     */
     public PasswordService(List<ValidationRule> rules) {
         this.rules = rules;
     }

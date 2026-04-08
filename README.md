@@ -20,27 +20,46 @@ Este projeto implementa uma API REST para validação de senhas, seguindo crité
 
 ## Começando com o Projeto
 
+| Software | Versão |
+| ---------| -------|
+| Java     | 21     |
+| Maven    | 3.9    |
+
+> O Maven é opcional. Pode-se utilizar o pacote _mvnw_ para executar o pom!
+
 1. Clone o repositório.
 
 ```bash
-$ git clone https://github.com/seuusuario/seuprojeto.git
+$ git clone https://github.com/benedictotavio/desafio-itau.git
 ```
 
 2. Execute alguns testes.
 
 ```bash
 ./mvnw test
+
+# ou
+
+mvn test
 ```
 
 3. Execução para desenvolvimento
 
 ```bash
 ./mvnw spring-boot:run
+
+# ou
+
+mvn spring-boot:run
 ```
 4. Execução para deploy.
 
 ```bash
 ./mvnw clean install && java -jar target/ItAu-0.0.1-SNAPSHOT.jar
+
+# ou
+
+mvn clean install && java -jar target/ItAu-0.0.1-SNAPSHOT.jar
 ```
 
 ## URL
@@ -73,6 +92,8 @@ $ git clone https://github.com/seuusuario/seuprojeto.git
 
 *Flexibilidade*: não ficamos presos às anotações do Jakarta Validation, que são mais rígidas e menos customizáveis.
 
+*Idiomaticidade*: como os filtros não são regras de negocio utiliza-se regras para validar a senha.
+
 ## API
 
 ### POST /api/v1/password/validate
@@ -103,7 +124,7 @@ curl -X POST http://localhost:8080/api/v1/password/validate
 A documentação interativa está disponível em:
 
 ```bash
-http://localhost:8080/swagger-ui/index.html
+http://localhost:8080/api/v1/swagger-ui.html
 ```
 
 ### Actuator
@@ -150,3 +171,64 @@ Exemplos: /health, /metrics, /info.
 *Pergunta:* "Qual é a estrutura recomendada de pastas para organizar uma aplicação Spring Boot com arquitetura limpa?"
 
 > Resposta: "Uma estrutura comum inclui pastas separadas para controllers, services, rules, config e testes. Por exemplo:
+
+```markdown
+src/
+ └── main/
+     ├── java/
+     │    └── com/
+     │         └── otavio/
+     │              └── passwordvalidator/
+     │                   ├── api/
+     │                   │    └── controller/
+     │                   │         └── PasswordController.java
+     │                   │
+     │                   ├── application/
+     │                   │    └── service/
+     │                   │         └── PasswordService.java
+     │                   │
+     │                   ├── domain/
+     │                   │    ├── model/
+     │                   │    │     └── Password.java
+     │                   │    ├── validator/
+     │                   │    │     ├── PasswordValidator.java
+     │                   │    │     ├── rules/
+     │                   │    │     │     ├── DigitRule.java
+     │                   │    │     │     ├── UppercaseRule.java
+     │                   │    │     │     ├── LowercaseRule.java
+     │                   │    │     │     ├── SpecialCharRule.java
+     │                   │    │     │     └── NoRepeatRule.java
+     │                   │    │     └── ValidationRule.java (interface)
+     │                   │
+     │                   ├── infrastructure/
+     │                   │    ├── config/
+     │                   │    │     └── SwaggerConfig.java
+     │                   │    ├── logging/
+     │                   │    └── actuator/
+     │                   │
+     │                   └── PasswordValidatorApplication.java
+     │
+     └── resources/
+          ├── application.yml
+          └── logback-spring.xml
+          
+ └── test/
+     ├── java/
+     │    └── com/
+     │         └── otavio/
+     │              └── passwordvalidator/
+     │                   ├── api/
+     │                   │    └── PasswordControllerTest.java
+     │                   ├── application/
+     │                   │    └── PasswordServiceTest.java
+     │                   └── domain/
+     │                        └── validator/
+     │                             ├── DigitRuleTest.java
+     │                             ├── UppercaseRuleTest.java
+     │                             ├── LowercaseRuleTest.java
+     │                             ├── SpecialCharRuleTest.java
+     │                             └── NoRepeatRuleTest.java
+     │
+     └── resources/
+          └── application-test.yml
+```
