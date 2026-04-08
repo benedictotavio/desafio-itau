@@ -10,4 +10,3 @@ public class LowercaseRule implements ValidationRule {
         return password != null && password.chars().anyMatch(Character::isLowerCase);
     }
 }
-

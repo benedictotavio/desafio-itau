@@ -189,8 +189,6 @@ src/
      │                   │         └── PasswordService.java
      │                   │
      │                   ├── domain/
-     │                   │    ├── model/
-     │                   │    │     └── Password.java
      │                   │    ├── validator/
      │                   │    │     ├── PasswordValidator.java
      │                   │    │     ├── rules/
