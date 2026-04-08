@@ -62,12 +62,6 @@ mvn spring-boot:run
 mvn clean install && java -jar target/ItAu-0.0.1-SNAPSHOT.jar
 ```
 
-## URL
-
-```bash
- http://localhost:8080/api/v1/
-```
-
 # Regras de Validação (RULES)
 
 ### A senha é considerada válida se atender a todos os critérios abaixo:
@@ -94,9 +88,23 @@ mvn clean install && java -jar target/ItAu-0.0.1-SNAPSHOT.jar
 
 *Idiomaticidade*: como os filtros não são regras de negocio utiliza-se regras para validar a senha.
 
+### Swagger
+
+A documentação interativa está disponível em:
+
+```bash
+http://localhost:8080/api/v1/swagger-ui.html
+```
+
 ## API
 
-### POST /api/v1/password/validate
+### URL
+
+```bash
+ http://localhost:8080/api/v1/
+```
+
+### POST /password/validate
 
 #### Dados recebidos
 
@@ -118,13 +126,6 @@ curl -X POST http://localhost:8080/api/v1/password/validate
 {
   "valid": true
 }
-```
-### Swagger
-
-A documentação interativa está disponível em:
-
-```bash
-http://localhost:8080/api/v1/swagger-ui.html
 ```
 
 ### Actuator
