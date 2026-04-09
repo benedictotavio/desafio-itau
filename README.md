@@ -18,7 +18,7 @@ Este projeto implementa uma API REST para validação de senhas, seguindo crité
 
 - Utiliza _Spring Actuator_ para endpoints de monitoramento.
 
-## Começando com o Projeto
+## Configurando o Projeto
 
 | Software | Versão |
 | ---------| -------|
@@ -62,7 +62,7 @@ mvn spring-boot:run
 mvn clean install && java -jar target/ItAu-0.0.1-SNAPSHOT.jar
 ```
 
-# Regras de Validação (RULES)
+## Regras de Validação (RULES)
 
 ### A senha é considerada válida se atender a todos os critérios abaixo:
 
@@ -76,43 +76,35 @@ mvn clean install && java -jar target/ItAu-0.0.1-SNAPSHOT.jar
 | Sem repetição    | Não possuir caracteres repetidos               | Evitar padrões previsíveis      |
 | Sem espaços      | Espaços não são válidos                        | Evitar ambiguidades             |
 
-## Por que usar RULES ao invés de UseCases ou Jakarta Validation?
+#### Por que usar RULES ao invés de UseCases ou Jakarta Validation?
 
-### 🔹 Extensibilidade
+##### 🔹 Extensibilidade
 - Novas regras podem ser adicionadas sem modificar o `PasswordService`.
 - Basta criar uma nova classe que implemente `ValidationRule` e anotá-la com `@Component`.
 - Segue o princípio **Open/Closed (OCP)**: aberto para extensão, fechado para modificação.
 
-### 🔹 Desacoplamento
+##### 🔹 Desacoplamento
 - O `PasswordService` conhece apenas a interface `ValidationRule`, não os detalhes de cada regra.
 - Isso reduz dependências diretas e facilita manutenção.
 
-### 🔹 Testabilidade
+##### 🔹 Testabilidade
 - É simples testar o `PasswordService` isoladamente, injetando apenas as regras necessárias.
 - Permite uso de **mocks** ou **stubs** sem carregar todo o contexto do Spring.
 
-### 🔹 Reuso
+##### 🔹 Reuso
 - As regras são independentes e podem ser reutilizadas em outros serviços.
 - Exemplo: `LengthRule` pode validar senhas em cadastro, login ou outros domínios.
 
-### 🔹 Clareza e Organização
+##### 🔹 Clareza e Organização
 - Cada regra tem responsabilidade única (**Single Responsibility Principle - SRP**).
 - O código fica mais legível e evita métodos com múltiplas condições complexas.
 
-### 🔹 Flexibilidade
+##### 🔹 Flexibilidade
 - É possível configurar quais regras devem ser aplicadas apenas ajustando os beans disponíveis.
 - Permite cenários diferentes (ex.: regras mais rígidas em produção, regras mais simples em testes).
 
 ---
-
-### ✅ Conclusão
-Essa arquitetura promove:
-- **Manutenibilidade**
-- **Escalabilidade**
-- **Qualidade de código**
-
-Além disso, está alinhada com boas práticas como **SOLID** e **Inversão de Controle (IoC)**.
-
+## API
 
 ### Swagger
 
@@ -121,8 +113,6 @@ A documentação interativa está disponível em:
 ```bash
 http://localhost:8080/api/v1/swagger-ui.html
 ```
-
-## API
 
 ### URL
 
